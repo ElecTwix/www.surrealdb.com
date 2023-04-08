@@ -5,10 +5,1133 @@
 	<Crumb::Item @link="docs.integration.libraries.golang">Golang</Crumb::Item>
 </Crumb>
 
+<Layout::Gap mini />
+
 <Layout::Text text-l text-f>
 	<h2><Devicon @size="50" @type="golang" /> Golang driver for <img inline src="/static/img/text.svg" alt="SurrealDB" /></h2>
-	<p>The documentation for this server side library is coming soon.</p>
+	<p>The SurrealDB library for Golang enables to use the SurrealDB database in your Golang applications.</p>
+	<p>For more information about the SurrealDB database, see the <Link @link="docs">documentation</Link>.</p>
 	<p>To contribute to this documentation, <Link @link={{github}}>edit this file on GitHub</Link>.</p>
 </Layout::Text>
 
+	<Layout::Gap mini />
+
+<Layout::Text text-l text-f>
+	<h3>Create Module</h3>
+	<p>First we need to create module if it is not exist</p>
+	<Code @name="docs-integration-libraries-golang-init.bash">
+		go mod init github.com/$username/$projectname
+	</Code>
+
+	<h3>Install the library</h3>
+	<p>First, install the SurrealDB library using <code>go get</code>:</p>
+	<Code @name="docs-integration-libraries-golang-get.bash">
+		go get github.com/surrealdb/surrealdb.go
+	</Code>
+</Layout::Text>
+
+<Layout::Gap mini />
+
+<Layout::Text text-l text-f>
+	<h3>Connect to SurrealDB</h3>
+	<p>Create a new main.go file and add the following code to try out some basic operations using the SurrealDB driver.</p>
+	<Code @name="docs/integration/libraries/golang/basic.go" />
+	<p>Then run your app from the command line with:</p>
+	<Code @name="docs-integration-libraries-golang-basic-run.bash">
+		go run .
+	</Code>
+</Layout::Text>
+
+<Layout::Gap mini />
+
+<Layout::Text text-l text-f>
+	<h3>Library methods</h3>
+	<p>The Golang library comes with a number of built-in functions.</p>
+</Layout::Text>
+
+<Layout::Gap tiny />
+
+<Layout::Table filled>
+	<table>
+		<thead>
+			<tr>
+				<th w-40>Function</th>
+				<th w-60>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					<a href="#connect">
+						<Ascua::Prism::Inline @language="go" @code="surrealdb.New(url string, options ...SurrealDBOption)" />
+					</a>
+				</td>
+				<td>Connects to a local or remote database endpoint</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="#signin">
+						<Ascua::Prism::Inline @language="go" @code="db.Signin(credentials map[string]string)" />
+					</a>
+				</td>
+				<td>Signs this connection in to a specific authentication scope</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="#signup">
+						<Ascua::Prism::Inline @language="go" @code="db.signup(vars interface{})" />
+					</a>
+				</td>
+				<td>Signs this connection up to a specific authentication scope</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="#use">
+						<Ascua::Prism::Inline @language="go" @code="db.Use(ns, database string)" />
+					</a>
+				</td>
+				<td>Switch to a specific namespace and database</td>
+			</tr>
+						<tr>
+				<td>
+					<a href="#invalidate">
+						<Ascua::Prism::Inline @language="go" @code="db.Invalidate()" />
+					</a>
+				</td>
+				<td>Invalidates the authentication for the current connection</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="#authenticate">
+						<Ascua::Prism::Inline @language="go" @code="db.Authenticate(token string)" />
+					</a>
+				</td>
+				<td>Authenticates the current connection with a JWT token</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="#let">
+						<Ascua::Prism::Inline @language="go" @code="db.Let(key string, val interface{})" />
+					</a>
+				</td>
+				<td>Assigns a value as a parameter for this connection</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="#create">
+						<Ascua::Prism::Inline @language="go" @code="db.Create(thing string, data interface{})" />
+					</a>
+				</td>
+				<td>Creates a record in the database</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="#select">
+						<Ascua::Prism::Inline @language="go" @code="db.Select(what string)" />
+					</a>
+				</td>
+				<td>Selects all records in a table, or a specific record</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="#update">
+						<Ascua::Prism::Inline @language="go" @code="db.Update(what string, data interface{})" />
+					</a>
+				</td>
+				<td>Updates all records in a table, or a specific record</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="#change">
+						<Ascua::Prism::Inline @language="go" @code="db.Change(what string, data interface{})" />
+					</a>
+				</td>
+				<td>Modifies all records in a table, or a specific record</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="#delete">
+						<Ascua::Prism::Inline @language="go" @code="db.Delete(what string)" />
+					</a>
+				</td>
+				<td>Deletes all records, or a specific record</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="#query">
+						<Ascua::Prism::Inline @language="go" @code="db.Query(sql string, vars interface{})" />
+					</a>
+				</td>
+				<td>Runs a set of SurrealQL statements against the database</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="#close">
+						<Ascua::Prism::Inline @language="go" @code="db.Close()" />
+					</a>
+				</td>
+				<td>Closes the persistent connection to the database</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="#smartmarshal">
+						<Ascua::Prism::Inline @language="go" @code="surrealdb.SmartMarshal[I any](inputfunc interface{}, data I)" />
+					</a>
+				</td>
+				<td>SmartUnmarshal can be used with all DB methods with generics and type safety.</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="#smartunmarshal">
+						<Ascua::Prism::Inline @language="go" @code="surrealdb.SmartUnmarshal[I any](respond interface{}, wrapperError error)" />
+					</a>
+				</td>
+				<td>SmartUnmarshal using generics for return desired type</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="#unmarshal">
+						<Ascua::Prism::Inline @language="go" @code="surrealdb.Unmarshal(data, v interface{}" />
+					</a>
+				</td>
+				<td>Unmarshal loads a SurrealDB response into a struct</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="#unmarshalraw">
+						<Ascua::Prism::Inline @language="go" @code="surrealdb.UnmarshalRaw(rawData, v interface{})" />
+					</a>
+				</td>
+				<td>UnmarshalRaw loads a raw SurrealQL response returned by Query into a struct. Queries that return with results will</td>
+			</tr>
+		</tbody>
+	</table>
+</Layout::Table>
+
 <Layout::Gap small />
+
+<Layout::Group {{waypoint "connect"}}>
+
+	<Layout::Text text-l text-f>
+		<h3><Ascua::Prism::Inline @language="go" @code="surrealdb.New(url string, options ...SurrealDBOption)" /></h3>
+		<p>Connects to a local or remote database endpoint.</p>
+		<Layout::Table>
+			<table>
+				<thead>
+					<tr>
+						<th w-40>Arguments</th>
+						<th w-60>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<code>url</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							The url of the database endpoint to connect to.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<code>options</code>
+							<l faint r>Optional</l>
+						</td>
+						<td>
+							Set SurrealDB clients options such as Timeout etc.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</Layout::Table>
+		<Code @name="docs-integration-libraries-golang-connect.go">
+			// Connect to a local endpoint
+			surrealdb.New("ws://localhost:8000/rpc");
+			// Connect to a remote endpoint
+			surrealdb.New("ws://cloud.surrealdb.com/rpc");
+		</Code>
+	</Layout::Text>
+
+</Layout::Group>
+
+<Layout::Gap small />
+
+<Layout::Group {{waypoint "close"}}>
+
+	<Layout::Text text-l text-f>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Close()" /></h3>
+		<p>Closes the persistent connection to the database.</p>
+		<Code @name="docs-integration-libraries-golang-close.go">
+			db.close();
+		</Code>
+	</Layout::Text>
+
+</Layout::Group>
+
+<Layout::Gap small />
+
+<Layout::Group {{waypoint "use"}}>
+
+	<Layout::Text text-l text-f>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Use(ns, database string)" /></h3>
+		<p>Switch to a specific namespace and database.</p>
+		<Layout::Table>
+			<table>
+				<thead>
+					<tr>
+						<th w-40>Arguments</th>
+						<th w-60>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<code>ns</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							Switches to a specific namespace.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<code>db</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							Switches to a specific database.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</Layout::Table>
+		<Code @name="docs-integration-libraries-golang-use.go">
+			db.Use("test", "test");
+		</Code>
+	</Layout::Text>
+
+</Layout::Group>
+
+<Layout::Gap small />
+
+<Layout::Group {{waypoint "signup"}}>
+
+	<Layout::Text text-l text-f>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Signup(vars interface{})" /></h3>
+		<p>Signs up to a specific authentication scope.</p>
+		<Layout::Table>
+			<table>
+				<thead>
+					<tr>
+						<th w-40>Arguments</th>
+						<th w-60>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<code>vars</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							Variables used in a signup query.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</Layout::Table>
+		<Code @name="docs-integration-libraries-golang-signup.go">
+			db.Signup(map[string]string{
+				"NS": "test",
+				"DB": "test",
+				"SC": "user",
+				"email": "info@surrealdb.com",
+				"pass": "123456",
+			})
+		</Code>
+	</Layout::Text>
+
+</Layout::Group>
+
+<Layout::Gap small />
+
+<Layout::Group {{waypoint "signin"}}>
+
+	<Layout::Text text-l text-f>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Signin(vars interface{})" /></h3>
+		<p>Signs in to a specific authentication scope.</p>
+		<Layout::Table>
+			<table>
+				<thead>
+					<tr>
+						<th w-40>Arguments</th>
+						<th w-60>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<code>vars</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							Variables used in a signin query.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</Layout::Table>
+		<Code @name="docs-integration-libraries-golang-signin.go">
+			db.Signin(map[string]string{
+				"user": "root",
+				"pass": "root",
+			})
+		</Code>
+	</Layout::Text>
+
+</Layout::Group>
+
+<Layout::Gap small />
+
+<Layout::Group {{waypoint "invalidate"}}>
+
+	<Layout::Text text-l text-f>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Invalidate()" /></h3>
+		<p>Invalidates the authentication for the current connection.</p>
+		<Code @name="docs-integration-libraries-golang-invalidate.go">
+			db.Invalidate();
+		</Code>
+	</Layout::Text>
+
+</Layout::Group>
+
+<Layout::Gap small />
+
+<Layout::Group {{waypoint "authenticate"}}>
+
+	<Layout::Text text-l text-f>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Authenticate(token string)" /></h3>
+		<p>Authenticates the current connection with a JWT token.</p>
+		<Layout::Table>
+			<table>
+				<thead>
+					<tr>
+						<th w-40>Arguments</th>
+						<th w-60>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<code>token</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							The JWT authentication token.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</Layout::Table>
+		<Code @name="docs-integration-libraries-golang-authenticate.go">
+			db.Authenticate("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJTdXJyZWFsREIiLCJpYXQiOjE1MTYyMzkwMjIsIm5iZiI6MTUxNjIzOTAyMiwiZXhwIjoxODM2NDM5MDIyLCJOUyI6InRlc3QiLCJEQiI6InRlc3QiLCJTQyI6InVzZXIiLCJJRCI6InVzZXI6dG9iaWUifQ.N22Gp9ze0rdR06McGj1G-h2vu6a6n9IVqUbMFJlOxxA");
+		</Code>
+	</Layout::Text>
+
+</Layout::Group>
+
+<Layout::Gap small />
+
+<Layout::Group {{waypoint "let"}}>
+
+	<Layout::Text text-l text-f>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Let(key string, val interface{})" /></h3>
+		<p>Assigns a value as a parameter for this connection.</p>
+		<Layout::Table>
+			<table>
+				<thead>
+					<tr>
+						<th w-40>Arguments</th>
+						<th w-60>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<code>key</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							Specifies the name of the variable.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<code>val</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							Assigns the value to the variable name.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</Layout::Table>
+		<Code @name="docs-integration-libraries-golang-let.go">
+			// Assign the variable on the connection
+			db.Let("name", map[string]string{
+					"first": "ElecTwix",
+					"last": "Morgan Hitchcock",
+			});
+			// Use the variable in a subsequent query
+			db.Query("CREATE person SET name = $name", nil);
+			// Use the variable in a subsequent query
+			db.Query("SELECT * FROM person WHERE name.first = $name.first", nil);
+		</Code>
+	</Layout::Text>
+
+</Layout::Group>
+
+<Layout::Gap small />
+
+<Layout::Group {{waypoint "query"}}>
+
+	<Layout::Text text-l text-f>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Query(sql string, vars interface{})" /></h3>
+		<p>Runs a set of SurrealQL statements against the database.</p>
+		<Layout::Table>
+			<table>
+				<thead>
+					<tr>
+						<th w-40>Arguments</th>
+						<th w-60>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<code>sql</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							Specifies the SurrealQL statements.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<code>vars</code>
+							<l faint r>Optional</l>
+						</td>
+						<td>
+							Assigns variables which can be used in the query.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</Layout::Table>
+		<Code @name="docs-integration-libraries-golang-query.go">
+			// Assign the variable on the connection
+			result, err := db.Query("CREATE person; SELECT * FROM type::table($tb);", map[string]string{
+				"tb": "person"
+			});
+		</Code>
+	</Layout::Text>
+
+</Layout::Group>
+
+<Layout::Gap small />
+
+<Layout::Group {{waypoint "select"}}>
+
+	<Layout::Text text-l text-f>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Select(what string)" /></h3>
+		<p>Selects all records in a table, or a specific record, from the database.</p>
+		<Layout::Table>
+			<table>
+				<thead>
+					<tr>
+						<th w-40>Arguments</th>
+						<th w-60>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<code>thing</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							The table name or a record ID to select.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</Layout::Table>
+		<Code @name="docs-integration-libraries-golang-select.go">
+			// Select all records from a table
+			db.Select("person");
+			// Select a specific record from a table
+			db.Select("person:h5wxrf2ewk8xjxosxtyc");
+		</Code>
+		<p>This function will run the following query in the database:</p>
+		<Code @name="docs-integration-libraries-golang-select-func.surql">
+			SELECT * FROM $thing;
+		</Code>
+	</Layout::Text>
+
+</Layout::Group>
+
+<Layout::Gap small />
+
+<Layout::Group {{waypoint "create"}}>
+
+	<Layout::Text text-l text-f>
+		<h3><Ascua::Prism::Inline @language="js" @code="db.create(thing, data)" /></h3>
+		<p>Creates a record in the database.</p>
+		<Layout::Table>
+			<table>
+				<thead>
+					<tr>
+						<th w-40>Arguments</th>
+						<th w-60>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<code>thing</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							The table name or the specific record ID to create.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<code>data</code>
+							<l faint r>Optional</l>
+						</td>
+						<td>
+							The document / record data to insert.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</Layout::Table>
+		<Code @name="docs-integration-libraries-nodejs-create.js">
+			// Create a record with a random ID
+			let person = await db.create('person');
+			// Create a record with a specific ID
+			let record = await db.create('person:tobie', {
+				name: 'Tobie',
+				settings: {
+					active: true,
+					marketing: true,
+				},
+			});
+		</Code>
+		<p>This function will run the following query in the database:</p>
+		<Code @name="docs-integration-libraries-nodejs-create-func.surql">
+			CREATE $thing CONTENT $data;
+		</Code>
+	</Layout::Text>
+
+</Layout::Group>
+
+<Layout::Gap small />
+
+<Layout::Group {{waypoint "update"}}>
+
+	<Layout::Text text-l text-f>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.update(what string, data interface{})" /></h3>
+		<p>Updates all records in a table, or a specific record, in the database.</p>
+		<blockquote yellow text="Note">This function replaces the current document / record data with the specified data.</blockquote>
+		<Layout::Table>
+			<table>
+				<thead>
+					<tr>
+						<th w-40>Arguments</th>
+						<th w-60>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<code>thing</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							The table name or the specific record ID to update.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<code>data</code>
+							<l faint r>Optional</l>
+						</td>
+						<td>
+							The document / record data to insert.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</Layout::Table>
+		<Code @name="docs-integration-libraries-golang-update.go">
+			// Update all records in a table
+			db.Update("person");
+			// Update a record with a specific ID
+			db.Update("person:ElecTwix", map[string]interface{}{
+				"name": "ElecTwix",
+				"settings": map[string]bool{
+					"active": true,
+					"marketing": true,
+				},
+			});
+		</Code>
+		<p>This function will run the following query in the database:</p>
+		<Code @name="docs-integration-libraries-golang-update-func.surql">
+			UPDATE $thing CONTENT $data;
+		</Code>
+	</Layout::Text>
+
+</Layout::Group>
+
+<Layout::Gap small />
+
+<Layout::Group {{waypoint "change"}}>
+
+	<Layout::Text text-l text-f>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Change(what string, data interface{})" /></h3>
+		<p>Modifies all records in a table, or a specific record, in the database.</p>
+		<blockquote yellow text="Note">This function merges the current document / record data with the specified data.</blockquote>
+		<Layout::Table>
+			<table>
+				<thead>
+					<tr>
+						<th w-40>Arguments</th>
+						<th w-60>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<code>thing</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							The table name or the specific record ID to change.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<code>data</code>
+							<l faint r>Optional</l>
+						</td>
+						<td>
+							The document / record data to insert.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</Layout::Table>
+		<Code @name="docs-integration-libraries-golang-change.go">
+			// Update all records in a table
+			db.Change("person", map[string]interface{}{
+				"updated_at": time.Now(),
+			});
+			// Update a record with a specific ID
+			db.Change("person:tobie", map[string]interface{}{
+				"updated_at": time.Now(),
+				"settings": map[string]bool{
+					"active": true,
+				},
+			});
+		</Code>
+		<p>This function will run the following query in the database:</p>
+		<Code @name="docs-integration-libraries-golang-change-func.surql">
+			UPDATE $thing MERGE $data;
+		</Code>
+	</Layout::Text>
+
+</Layout::Group>
+
+<Layout::Gap small />
+
+<Layout::Group {{waypoint "modify"}}>
+
+	<Layout::Text text-l text-f>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Modify(what string, data interface{})" /></h3>
+		<p>Applies <Link @link="https://jsonpatch.com">JSON Patch</Link> changes to all records, or a specific record, in the database.</p>
+		<blockquote yellow text="Note">This function patches the current document / record data with the specified <Link @link="https://jsonpatch.com">JSON Patch</Link> data.</blockquote>
+		<Layout::Table>
+			<table>
+				<thead>
+					<tr>
+						<th w-40>Arguments</th>
+						<th w-60>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<code>thing</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							The table name or the specific record ID to modify.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<code>data</code>
+							<l faint r>Optional</l>
+						</td>
+						<td>
+							The <Link @link="https://jsonpatch.com">JSON Patch</Link> data with which to modify the records.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</Layout::Table>
+		<Code @name="docs-integration-libraries-golang-modify.go">
+			// Update all records in a table
+			db.Modify('person', map[string]interface{}{"op": "replace", "path": "/created_at", "value": time.Now()});
+			// Update a record with a specific ID
+			db.Modify('person:tobie', map[string]interface{}{
+				{ "op": "replace", "path": "/settings/active", "value": false },
+				{ "op": "add", "path": "/tags", "value": []string{"developer", "engineer"} },
+				{ "op": "remove", "path": "/temp" },
+			});
+		</Code>
+		<p>This function will run the following query in the database:</p>
+		<Code @name="docs-integration-libraries-golang-modify-func.surql">
+			UPDATE $thing PATCH $data;
+		</Code>
+	</Layout::Text>
+
+</Layout::Group>
+
+<Layout::Gap small />
+
+<Layout::Group {{waypoint "delete"}}>
+
+	<Layout::Text text-l text-f>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Delete(what string)" /></h3>
+		<p>Deletes all records in a table, or a specific record, from the database.</p>
+		<Layout::Table>
+			<table>
+				<thead>
+					<tr>
+						<th w-40>Arguments</th>
+						<th w-60>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<code>thing</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							The table name or a record ID to delete.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</Layout::Table>
+		<Code @name="docs-integration-libraries-golang-delete.go">
+			// Delete all records from a table
+			db.Delete("person");
+			// Delete a specific record from a table
+			db.delete("person:h5wxrf2ewk8xjxosxtyc");
+		</Code>
+		<p>This function will run the following query in the database:</p>
+		<Code @name="docs-integration-libraries-golang-delete-func.surql">
+			DELETE * FROM $thing;
+		</Code>
+	</Layout::Text>
+
+</Layout::Group>
+
+<Layout::Gap small />
+
+<Layout::Group {{waypoint "smartmarshal"}}>
+
+	<Layout::Text text-l text-f>
+		<h3><Ascua::Prism::Inline @language="go" @code="surrealdb.SmartMarshal[I any](inputfunc interface{}, data I)" /></h3>
+		<p>
+			SmartUnmarshal can be used with all DB methods with generics and type safety.
+			This handles errors and can use any struct tag with `BaseModel` type.
+			Warning: "ID" field is case sensitive and expect string.
+			Upon failure, the following will happen
+			1. If there are some ID on struct it will fill the table with the ID
+			2. If there are struct tags of the type `Basemodel`, it will use those values instead
+			3. If everything above fails or the IDs do not exist, SmartUnmarshal will use the struct name as the table name.
+
+		</p>
+		<Layout::Table>
+			<table>
+				<thead>
+					<tr>
+						<th w-40>Arguments</th>
+						<th w-60>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<code>inputfunc</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							The Function that will be executed.
+						</td>
+					</tr>
+										<tr>
+						<td>
+							<code>data</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							Struct that will used with function.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</Layout::Table>
+		<Code @name="docs-integration-libraries-golang-smartmarshal.go">
+
+	// a simple user struct
+	type testUser struct {
+		surrealdb.Basemodel `table:"test"`
+		Username            string `json:"username,omitempty"`
+		Password            string `json:"password,omitempty"`
+		ID                  string `json:"id,omitempty"`
+	}
+
+	// create a new user
+	user := testUser{
+		Username: "electwix",
+		Password: "1234",
+		ID:       "sometable:someid",
+	}
+
+	// create a new user
+	data, err := surrealdb.SmartMarshal(db.Create, user)
+	// select a user
+	data, err := surrealdb.SmartMarshal(db.Select, user)
+	// update a user
+	data, err := surrealdb.SmartMarshal(db.Update, user)
+	// delete a user
+	data, err := surrealdb.SmartMarshal(db.Delete, user)
+
+	</Code>
+
+	</Layout::Text>
+
+</Layout::Group>
+
+<Layout::Gap small />
+
+<Layout::Group {{waypoint "smartunmarshal"}}>
+
+	<Layout::Text text-l text-f>
+		<h3><Ascua::Prism::Inline @language="go" @code="surrealdb.SmartUnmarshal[I any](respond interface{}, wrapperError error)" /></h3>
+		<p>
+			SmartUnmarshal using generics for return desired type.
+			Supports both raw and normal queries.
+		</p>
+		<Layout::Table>
+			<table>
+				<thead>
+					<tr>
+						<th w-40>Arguments</th>
+						<th w-60>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<code>respond</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							Respond from other functions.
+						</td>
+					</tr>
+										<tr>
+						<td>
+							<code>wrapperError</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							wrapper error.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</Layout::Table>
+		<Code @name="docs-integration-libraries-golang-smartunmarshal.go">
+
+	// a simple user struct
+	type testUser struct {
+		surrealdb.Basemodel `table:"test"`
+		Username            string `json:"username,omitempty"`
+		Password            string `json:"password,omitempty"`
+		ID                  string `json:"id,omitempty"`
+	}
+
+	QueryStr := "Create users set Username = $user, Password = $pass"
+	dataArr, err := surrealdb.SmartUnmarshal[[]testUser](s.db.Query(QueryStr, map[string]interface{}{
+		"user": "electwix",
+		"pass": "strongpassword",
+	}))
+
+	// select array of users with raw query
+	dataArr, err := surrealdb.SmartUnmarshal[[]testUser](db.Query("Select * from $record", map[string]interface{}{
+		"record": user[0].ID,
+	}))
+
+	// select a user
+	data, err := surrealdb.SmartUnmarshal[testUser](s.db.Select(user[0].ID))
+
+	data, err := surrealdb.SmartUnmarshal[[]testUser](s.db.Select("users"))
+
+
+	</Code>
+
+	</Layout::Text>
+
+</Layout::Group>
+
+<Layout::Gap small />
+
+<Layout::Group {{waypoint "unmarshal"}}>
+
+	<Layout::Text text-l text-f>
+		<h3><Ascua::Prism::Inline @language="go" @code="surrealdb.Unmarshal(data, v interface{}" /></h3>
+		<p>
+			Unmarshal loads a SurrealDB response into a struct.
+		</p>
+		<Layout::Table>
+			<table>
+				<thead>
+					<tr>
+						<th w-40>Arguments</th>
+						<th w-60>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<code>data</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							Respond from other queries.
+						</td>
+					</tr>
+										<tr>
+						<td>
+							<code>v</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							struct.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</Layout::Table>
+		<Code @name="docs-integration-libraries-golang-unmarshal.go">
+
+	// a simple user struct
+	type testUser struct {
+		surrealdb.Basemodel `table:"test"`
+		Username            string `json:"username,omitempty"`
+		Password            string `json:"password,omitempty"`
+		ID                  string `json:"id,omitempty"`
+	}
+
+	// select a user
+	data, err := db.Select("person:electwix")
+
+	var user testUser
+	err = surrealdb.Unmarshal(userData, &user)
+
+	</Code>
+
+	</Layout::Text>
+
+</Layout::Group>
+
+<Layout::Gap small />
+
+<Layout::Group {{waypoint "unmarshalraw"}}>
+
+	<Layout::Text text-l text-f>
+		<h3><Ascua::Prism::Inline @language="go" @code="surrealdb.UnmarshalRaw(rawData, v interface{})" /></h3>
+		<p>
+			UnmarshalRaw loads a raw SurrealQL response returned by Query into a struct. Queries that return with results will
+			return ok = true, and queries that return with no results will return ok = false.
+		</p>
+		<Layout::Table>
+			<table>
+				<thead>
+					<tr>
+						<th w-40>Arguments</th>
+						<th w-60>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<code>rawdata</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							Raw Query response.
+						</td>
+					</tr>
+										<tr>
+						<td>
+							<code>v</code>
+							<l yellow r>Required</l>
+						</td>
+						<td>
+							is a struct.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</Layout::Table>
+		<Code @name="docs-integration-libraries-golang-delete.go">
+
+	// a simple user struct
+	type testUser struct {
+		Username            string `json:"username,omitempty"`
+		Password            string `json:"password,omitempty"`
+		ID                  string `json:"id,omitempty"`
+	}
+
+	username := "johnny"
+	password := "123"
+
+	// create test user with raw SurrealQL and unmarshal
+	userData, err := s.db.Query("create users:johnny set Username = $user, Password = $pass", map[string]interface{}{
+		"user": username,
+		"pass": password,
+	})
+
+	var userSlice []testUser
+	ok, err := surrealdb.UnmarshalRaw(userData, &userSlice)
+
+
+	</Code>
+
+	</Layout::Text>
+
+</Layout::Group>
+
+<Layout::Gap large />
