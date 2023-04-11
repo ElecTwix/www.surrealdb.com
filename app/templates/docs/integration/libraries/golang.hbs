@@ -36,10 +36,6 @@
 	<h3>Connect to SurrealDB</h3>
 	<p>Create a new main.go file and add the following code to try out some basic operations using the SurrealDB driver.</p>
 	<Code @name="docs/integration/libraries/golang/basic.go" />
-	<p>Then run your app from the command line with:</p>
-	<Code @name="docs-integration-libraries-golang-basic-run.bash">
-		go run .
-	</Code>
 </Layout::Text>
 
 <Layout::Gap mini />
@@ -66,103 +62,103 @@
 						<Ascua::Prism::Inline @language="go" @code="surrealdb.New(url string, options ...SurrealDBOption)" />
 					</a>
 				</td>
-				<td>Connects to a local or remote database endpoint</td>
-			</tr>
-			<tr>
-				<td>
-					<a href="#signin">
-						<Ascua::Prism::Inline @language="go" @code="db.Signin(credentials map[string]string)" />
-					</a>
-				</td>
-				<td>Signs this connection in to a specific authentication scope</td>
-			</tr>
-			<tr>
-				<td>
-					<a href="#signup">
-						<Ascua::Prism::Inline @language="go" @code="db.signup(vars interface{})" />
-					</a>
-				</td>
-				<td>Signs this connection up to a specific authentication scope</td>
+				<td>Connects to a local or remote database endpoint.</td>
 			</tr>
 			<tr>
 				<td>
 					<a href="#use">
-						<Ascua::Prism::Inline @language="go" @code="db.Use(ns, database string)" />
+						<Ascua::Prism::Inline @language="go" @code="db.Use(ns, database string) (interface{}, error)" />
 					</a>
 				</td>
-				<td>Switch to a specific namespace and database</td>
+				<td>Switch to a specific namespace and database.</td>
 			</tr>
-						<tr>
+			<tr>
+				<td>
+					<a href="#signin">
+						<Ascua::Prism::Inline @language="go" @code="db.Signin(vars interface{}) (interface{}, error)" />
+					</a>
+				</td>
+				<td>Signs this connection in to a specific authentication scope.</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="#signup">
+						<Ascua::Prism::Inline @language="go" @code="db.Signup(vars interface{}) (interface{}, error)" />
+					</a>
+				</td>
+				<td>Signs this connection up to a specific authentication scope.</td>
+			</tr>
+			<tr>
 				<td>
 					<a href="#invalidate">
-						<Ascua::Prism::Inline @language="go" @code="db.Invalidate()" />
+						<Ascua::Prism::Inline @language="go" @code="db.Invalidate() (interface{}, error)" />
 					</a>
 				</td>
-				<td>Invalidates the authentication for the current connection</td>
+				<td>Invalidates the authentication for the current connection.</td>
 			</tr>
 			<tr>
 				<td>
 					<a href="#authenticate">
-						<Ascua::Prism::Inline @language="go" @code="db.Authenticate(token string)" />
+						<Ascua::Prism::Inline @language="go" @code="db.Authenticate(token string) (interface{}, error)" />
 					</a>
 				</td>
-				<td>Authenticates the current connection with a JWT token</td>
+				<td>Authenticates the current connection with a JWT token.</td>
 			</tr>
 			<tr>
 				<td>
 					<a href="#let">
-						<Ascua::Prism::Inline @language="go" @code="db.Let(key string, val interface{})" />
+						<Ascua::Prism::Inline @language="go" @code="db.Let(key string, val interface{}) (interface{}, error)" />
 					</a>
 				</td>
-				<td>Assigns a value as a parameter for this connection</td>
+				<td>Assigns a value as a parameter for this connection.</td>
 			</tr>
 			<tr>
 				<td>
 					<a href="#create">
-						<Ascua::Prism::Inline @language="go" @code="db.Create(thing string, data interface{})" />
+						<Ascua::Prism::Inline @language="go" @code="db.Create(thing string, data interface{}) (interface{}, error)" />
 					</a>
 				</td>
-				<td>Creates a record in the database</td>
+				<td>Creates a record in the database.</td>
 			</tr>
 			<tr>
 				<td>
 					<a href="#select">
-						<Ascua::Prism::Inline @language="go" @code="db.Select(what string)" />
+						<Ascua::Prism::Inline @language="go" @code="db.Select(what string) (interface{}, error)" />
 					</a>
 				</td>
-				<td>Selects all records in a table, or a specific record</td>
+				<td>Selects all records in a table, or a specific record.</td>
 			</tr>
 			<tr>
 				<td>
 					<a href="#update">
-						<Ascua::Prism::Inline @language="go" @code="db.Update(what string, data interface{})" />
+						<Ascua::Prism::Inline @language="go" @code="db.Update(what string, data interface{}) (interface{}, error)" />
 					</a>
 				</td>
-				<td>Updates all records in a table, or a specific record</td>
+				<td>Updates all records in a table, or a specific record.</td>
 			</tr>
 			<tr>
 				<td>
 					<a href="#change">
-						<Ascua::Prism::Inline @language="go" @code="db.Change(what string, data interface{})" />
+						<Ascua::Prism::Inline @language="go" @code="db.Change(what string, data interface{}) (interface{}, error)" />
 					</a>
 				</td>
-				<td>Modifies all records in a table, or a specific record</td>
+				<td>Modifies all records in a table, or a specific record.</td>
 			</tr>
 			<tr>
 				<td>
 					<a href="#delete">
-						<Ascua::Prism::Inline @language="go" @code="db.Delete(what string)" />
+						<Ascua::Prism::Inline @language="go" @code="db.Delete(what string) (interface{}, error)" />
 					</a>
 				</td>
-				<td>Deletes all records, or a specific record</td>
+				<td>Deletes all records, or a specific record.</td>
 			</tr>
 			<tr>
 				<td>
 					<a href="#query">
-						<Ascua::Prism::Inline @language="go" @code="db.Query(sql string, vars interface{})" />
+						<Ascua::Prism::Inline @language="go" @code="db.Query(sql string, vars interface{}) (interface{}, error)" />
 					</a>
 				</td>
-				<td>Runs a set of SurrealQL statements against the database</td>
+				<td>Runs a set of SurrealQL statements against the database.</td>
 			</tr>
 			<tr>
 				<td>
@@ -170,12 +166,12 @@
 						<Ascua::Prism::Inline @language="go" @code="db.Close()" />
 					</a>
 				</td>
-				<td>Closes the persistent connection to the database</td>
+				<td>Closes the persistent connection to the database.</td>
 			</tr>
 			<tr>
 				<td>
 					<a href="#smartmarshal">
-						<Ascua::Prism::Inline @language="go" @code="surrealdb.SmartMarshal[I any](inputfunc interface{}, data I)" />
+						<Ascua::Prism::Inline @language="go" @code="surrealdb.SmartMarshal[I any](inputfunc interface{}, data I) (output interface{}, err error)" />
 					</a>
 				</td>
 				<td>SmartUnmarshal can be used with all DB methods with generics and type safety.</td>
@@ -183,26 +179,26 @@
 			<tr>
 				<td>
 					<a href="#smartunmarshal">
-						<Ascua::Prism::Inline @language="go" @code="surrealdb.SmartUnmarshal[I any](respond interface{}, wrapperError error)" />
+						<Ascua::Prism::Inline @language="go" @code="surrealdb.SmartUnmarshal[I any](respond interface{}, wrapperError error) (data I, err error)" />
 					</a>
 				</td>
-				<td>SmartUnmarshal using generics for return desired type</td>
+				<td>SmartUnmarshal is used to map structs to known types via generics conveniently. Its signature is designed to be convenient to use with the other driver methods and intended to be used that way.</td>
 			</tr>
 			<tr>
 				<td>
 					<a href="#unmarshal">
-						<Ascua::Prism::Inline @language="go" @code="surrealdb.Unmarshal(data, v interface{}" />
+						<Ascua::Prism::Inline @language="go" @code="surrealdb.Unmarshal(data, v interface{}) error" />
 					</a>
 				</td>
-				<td>Unmarshal loads a SurrealDB response into a struct</td>
+				<td>Unmarshal loads a SurrealDB response into a struct. It is perfectly fine to use this function however it requires casting types.</td>
 			</tr>
 			<tr>
 				<td>
 					<a href="#unmarshalraw">
-						<Ascua::Prism::Inline @language="go" @code="surrealdb.UnmarshalRaw(rawData, v interface{})" />
+						<Ascua::Prism::Inline @language="go" @code="surrealdb.UnmarshalRaw(rawData, v interface{}) (ok bool, err error)" />
 					</a>
 				</td>
-				<td>UnmarshalRaw loads a raw SurrealQL response returned by Query into a struct. Queries that return with results will</td>
+				<td>UnmarshalRaw loads a raw SurrealQL response returned by Query into a struct. This is not the same as a query result. The value of this function will include additional information such as execution time and status - details that tend to be omitted from the SurrealQL query the user would be interested in.</td>
 			</tr>
 		</tbody>
 	</table>
@@ -213,7 +209,7 @@
 <Layout::Group {{waypoint "connect"}}>
 
 	<Layout::Text text-l text-f>
-		<h3><Ascua::Prism::Inline @language="go" @code="surrealdb.New(url string, options ...SurrealDBOption)" /></h3>
+		<h3><Ascua::Prism::Inline @language="go" @code="surrealdb.New(url string, options ...SurrealDBOption) (*DB, error)" /></h3>
 		<p>Connects to a local or remote database endpoint.</p>
 		<Layout::Table>
 			<table>
@@ -274,7 +270,7 @@
 <Layout::Group {{waypoint "use"}}>
 
 	<Layout::Text text-l text-f>
-		<h3><Ascua::Prism::Inline @language="go" @code="db.Use(ns, database string)" /></h3>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Use(ns, database string) (interface{}, error)" /></h3>
 		<p>Switch to a specific namespace and database.</p>
 		<Layout::Table>
 			<table>
@@ -307,7 +303,7 @@
 			</table>
 		</Layout::Table>
 		<Code @name="docs-integration-libraries-golang-use.go">
-			db.Use("test", "test");
+			db.Use("happy-hippo-staging", "my-service")
 		</Code>
 	</Layout::Text>
 
@@ -318,7 +314,7 @@
 <Layout::Group {{waypoint "signup"}}>
 
 	<Layout::Text text-l text-f>
-		<h3><Ascua::Prism::Inline @language="go" @code="db.Signup(vars interface{})" /></h3>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Signup(vars interface{}) (interface{}, error)" /></h3>
 		<p>Signs up to a specific authentication scope.</p>
 		<Layout::Table>
 			<table>
@@ -359,7 +355,7 @@
 <Layout::Group {{waypoint "signin"}}>
 
 	<Layout::Text text-l text-f>
-		<h3><Ascua::Prism::Inline @language="go" @code="db.Signin(vars interface{})" /></h3>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Signin(vars interface{}) (interface{}, error)" /></h3>
 		<p>Signs in to a specific authentication scope.</p>
 		<Layout::Table>
 			<table>
@@ -397,8 +393,11 @@
 <Layout::Group {{waypoint "invalidate"}}>
 
 	<Layout::Text text-l text-f>
-		<h3><Ascua::Prism::Inline @language="go" @code="db.Invalidate()" /></h3>
-		<p>Invalidates the authentication for the current connection.</p>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Invalidate() (interface{}, error)" /></h3>
+		<p>
+			Invalidates the authentication for the current connection.
+			Invalidates close the authenticated connection.
+		</p>
 		<Code @name="docs-integration-libraries-golang-invalidate.go">
 			db.Invalidate();
 		</Code>
@@ -411,7 +410,7 @@
 <Layout::Group {{waypoint "authenticate"}}>
 
 	<Layout::Text text-l text-f>
-		<h3><Ascua::Prism::Inline @language="go" @code="db.Authenticate(token string)" /></h3>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Authenticate(token string) (interface{}, error)" /></h3>
 		<p>Authenticates the current connection with a JWT token.</p>
 		<Layout::Table>
 			<table>
@@ -446,7 +445,7 @@
 <Layout::Group {{waypoint "let"}}>
 
 	<Layout::Text text-l text-f>
-		<h3><Ascua::Prism::Inline @language="go" @code="db.Let(key string, val interface{})" /></h3>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Let(key string, val interface{}) (interface{}, error)" /></h3>
 		<p>Assigns a value as a parameter for this connection.</p>
 		<Layout::Table>
 			<table>
@@ -498,7 +497,7 @@
 <Layout::Group {{waypoint "query"}}>
 
 	<Layout::Text text-l text-f>
-		<h3><Ascua::Prism::Inline @language="go" @code="db.Query(sql string, vars interface{})" /></h3>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Query(sql string, vars interface{}) (interface{}, error)" /></h3>
 		<p>Runs a set of SurrealQL statements against the database.</p>
 		<Layout::Table>
 			<table>
@@ -545,7 +544,7 @@
 <Layout::Group {{waypoint "select"}}>
 
 	<Layout::Text text-l text-f>
-		<h3><Ascua::Prism::Inline @language="go" @code="db.Select(what string)" /></h3>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Select(what string) (interface{}, error)" /></h3>
 		<p>Selects all records in a table, or a specific record, from the database.</p>
 		<Layout::Table>
 			<table>
@@ -587,7 +586,7 @@
 <Layout::Group {{waypoint "create"}}>
 
 	<Layout::Text text-l text-f>
-		<h3><Ascua::Prism::Inline @language="js" @code="db.create(thing, data)" /></h3>
+		<h3><Ascua::Prism::Inline @language="js" @code="db.create(thing, data) (interface{}, error)" /></h3>
 		<p>Creates a record in the database.</p>
 		<Layout::Table>
 			<table>
@@ -644,7 +643,7 @@
 <Layout::Group {{waypoint "update"}}>
 
 	<Layout::Text text-l text-f>
-		<h3><Ascua::Prism::Inline @language="go" @code="db.update(what string, data interface{})" /></h3>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.update(what string, data interface{}) (interface{}, error)" /></h3>
 		<p>Updates all records in a table, or a specific record, in the database.</p>
 		<blockquote yellow text="Note">This function replaces the current document / record data with the specified data.</blockquote>
 		<Layout::Table>
@@ -702,7 +701,7 @@
 <Layout::Group {{waypoint "change"}}>
 
 	<Layout::Text text-l text-f>
-		<h3><Ascua::Prism::Inline @language="go" @code="db.Change(what string, data interface{})" /></h3>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Change(what string, data interface{}) (interface{}, error)" /></h3>
 		<p>Modifies all records in a table, or a specific record, in the database.</p>
 		<blockquote yellow text="Note">This function merges the current document / record data with the specified data.</blockquote>
 		<Layout::Table>
@@ -761,7 +760,7 @@
 <Layout::Group {{waypoint "modify"}}>
 
 	<Layout::Text text-l text-f>
-		<h3><Ascua::Prism::Inline @language="go" @code="db.Modify(what string, data interface{})" /></h3>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Modify(what string, data interface{}) (interface{}, error)" /></h3>
 		<p>Applies <Link @link="https://jsonpatch.com">JSON Patch</Link> changes to all records, or a specific record, in the database.</p>
 		<blockquote yellow text="Note">This function patches the current document / record data with the specified <Link @link="https://jsonpatch.com">JSON Patch</Link> data.</blockquote>
 		<Layout::Table>
@@ -817,7 +816,7 @@
 <Layout::Group {{waypoint "delete"}}>
 
 	<Layout::Text text-l text-f>
-		<h3><Ascua::Prism::Inline @language="go" @code="db.Delete(what string)" /></h3>
+		<h3><Ascua::Prism::Inline @language="go" @code="db.Delete(what string) (interface{}, error)" /></h3>
 		<p>Deletes all records in a table, or a specific record, from the database.</p>
 		<Layout::Table>
 			<table>
@@ -859,7 +858,7 @@
 <Layout::Group {{waypoint "smartmarshal"}}>
 
 	<Layout::Text text-l text-f>
-		<h3><Ascua::Prism::Inline @language="go" @code="surrealdb.SmartMarshal[I any](inputfunc interface{}, data I)" /></h3>
+		<h4><Ascua::Prism::Inline @language="go" @code="surrealdb.SmartMarshal[I any](inputfunc interface{}, data I) (output interface{}, err error)" /></h4>
 		<p>
 			SmartUnmarshal can be used with all DB methods with generics and type safety.
 			This handles errors and can use any struct tag with `BaseModel` type.
@@ -937,7 +936,7 @@
 <Layout::Group {{waypoint "smartunmarshal"}}>
 
 	<Layout::Text text-l text-f>
-		<h3><Ascua::Prism::Inline @language="go" @code="surrealdb.SmartUnmarshal[I any](respond interface{}, wrapperError error)" /></h3>
+		<h4><Ascua::Prism::Inline @language="go" @code="surrealdb.SmartUnmarshal[I any](respond interface{}, wrapperError error) (data I, err error)" /></h4>
 		<p>
 			SmartUnmarshal using generics for return desired type.
 			Supports both raw and normal queries.
@@ -1010,7 +1009,7 @@
 <Layout::Group {{waypoint "unmarshal"}}>
 
 	<Layout::Text text-l text-f>
-		<h3><Ascua::Prism::Inline @language="go" @code="surrealdb.Unmarshal(data, v interface{}" /></h3>
+		<h3><Ascua::Prism::Inline @language="go" @code="surrealdb.Unmarshal(data, v interface{} error" /></h3>
 		<p>
 			Unmarshal loads a SurrealDB response into a struct.
 		</p>
@@ -1071,7 +1070,7 @@
 <Layout::Group {{waypoint "unmarshalraw"}}>
 
 	<Layout::Text text-l text-f>
-		<h3><Ascua::Prism::Inline @language="go" @code="surrealdb.UnmarshalRaw(rawData, v interface{})" /></h3>
+		<h3><Ascua::Prism::Inline @language="go" @code="surrealdb.UnmarshalRaw(rawData, v interface{}) (ok bool, err error)" /></h3>
 		<p>
 			UnmarshalRaw loads a raw SurrealQL response returned by Query into a struct. Queries that return with results will
 			return ok = true, and queries that return with no results will return ok = false.
